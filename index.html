@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guide 5 - Unit 3: Motivation and Employee Engagement - Colegio Montano</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        montano: {
+                            blue: '#1269A8',
+                            yellow: '#F7D615',
+                            teal: '#54887D',
+                            lightblue: '#88B5C7',
+                            olive: '#A6B046',
+                            softwhite: '#F2F5E9'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Nunito', 'Segoe UI', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        :root {
+            --montano-blue: #1269A8;
+            --montano-yellow: #F7D615;
+            --montano-teal: #54887D;
+            --montano-lightblue: #88B5C7;
+            --montano-olive: #A6B046;
+            --montano-softwhite: #F2F5E9;
+        }
+
+        body {
+            background-color: #E2E8F0;
+            font-family: 'Nunito', 'Segoe UI', sans-serif;
+            color: #2D3748;
+        }
+
+        /* Digital Whiteboard Container */
+        .whiteboard-frame {
+            background-color: var(--montano-softwhite);
+            border: 12px solid #CBD5E1;
+            border-radius: 20px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.15), 0 10px 10px -5px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn {
+            transition: all 0.25s ease-in-out;
+            border-bottom: 4px solid transparent;
+        }
+
+        .tab-btn.active {
+            background-color: #FFFFFF;
+            color: var(--montano-blue);
+            border-bottom-color: var(--montano-yellow);
+            font-weight: 800;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+        }
+
+        .card-montano {
+            border-left: 5px solid var(--montano-blue);
+            background: #FFFFFF;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .card-montano:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.08);
+        }
+
+        .audio-btn {
+            transition: all 0.2s ease;
+        }
+        .audio-btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #E2E8F0;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--montano-lightblue);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--montano-blue);
+        }
+    </style>
+</head>
+<body class="p-2 md:p-6 min-h-screen">
+
+    <!-- MAIN WHITEBOARD CONTAINER -->
+    <div id="whiteboardContainer" class="whiteboard-frame max-w-7xl mx-auto p-4 md:p-8 relative min-h-[90vh] flex flex-col justify-between">
+        
+        <!-- HEADER SECTION -->
+        <header class="border-b-2 border-slate-300 pb-4 mb-6">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                
+                <!-- Logo & Title -->
+                <div class="flex items-center gap-4 w-full md:w-auto justify-between md:justify-start">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQyEop0yf6lZ7Jk9MILZxF1rBj4Oqs5esyhIQ&s" 
+                         alt="Colegio Montano Logo" 
+                         class="h-16 w-auto object-contain bg-white p-1 rounded-lg shadow-sm"
+                         onerror="this.src='https://placehold.co/150x60/1269A8/FFFFFF?text=Colegio+Montano'">
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <span class="bg-montano-yellow text-slate-900 text-xs font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider">
+                                Guide 5 — Unit 3
+                            </span>
+                            <span class="bg-montano-lightblue text-white text-xs font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider">
+                                12th Mercadotecnia | ESL B2-C1
+                            </span>
+                        </div>
+                        <h1 class="text-2xl md:text-3xl font-extrabold text-montano-blue tracking-tight mt-1">
+                            Motivation and Employee Engagement
+                        </h1>
+                    </div>
+                </div>
+
+                <!-- Header Actions & Controls -->
+                <div class="flex items-center gap-3 self-end md:self-center">
+                    <button onclick="toggleFullscreen()" title="Toggle Fullscreen"
+                            class="flex items-center gap-2 bg-montano-blue text-white px-4 py-2 rounded-xl text-sm font-bold shadow hover:bg-opacity-90 active:scale-95 transition">
+                        <i class="fa-solid font-bold fa-expand" id="fullscreenIcon"></i>
+                        <span class="hidden sm:inline">Fullscreen</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- NAVIGATION TABS -->
+            <nav class="flex overflow-x-auto gap-2 mt-6 border-b border-slate-200 no-scrollbar">
+                <button onclick="switchTab(1)" id="tab-btn-1" class="tab-btn active px-5 py-3 text-sm md:text-base font-bold whitespace-nowrap rounded-t-xl text-slate-600 flex items-center gap-2">
+                    <i class="fa-solid fa-fire text-montano-blue"></i> 1. Theoretical Foundations
+                </button>
+                <button onclick="switchTab(2)" id="tab-btn-2" class="tab-btn px-5 py-3 text-sm md:text-base font-bold whitespace-nowrap rounded-t-xl text-slate-600 flex items-center gap-2">
+                    <i class="fa-solid fa-list-check text-montano-teal"></i> 2. Solved Examples (15)
+                </button>
+                <button onclick="switchTab(3)" id="tab-btn-3" class="tab-btn px-5 py-3 text-sm md:text-base font-bold whitespace-nowrap rounded-t-xl text-slate-600 flex items-center gap-2">
+                    <i class="fa-solid fa-microphone text-montano-yellow"></i> 3. Live Voice Simulator
+                </button>
+                <button onclick="switchTab(4)" id="tab-btn-4" class="tab-btn px-5 py-3 text-sm md:text-base font-bold whitespace-nowrap rounded-t-xl text-slate-600 flex items-center gap-2">
+                    <i class="fa-solid fa-comments text-montano-lightblue"></i> 4. Critical Reflection
+                </button>
+                <button onclick="switchTab(5)" id="tab-btn-5" class="tab-btn px-5 py-3 text-sm md:text-base font-bold whitespace-nowrap rounded-t-xl text-slate-600 flex items-center gap-2">
+                    <i class="fa-solid fa-clipboard-question text-montano-olive"></i> 5. Formative Evaluation (15)
+                </button>
+            </nav>
+        </header>
+
+        <!-- MAIN CONTENT AREA -->
+        <main class="flex-1">
+
+            <!-- TAB 1: THEORY & GRAMMAR -->
+            <div id="tab-1" class="tab-content space-y-6">
+                <!-- Warm-Up Prompt -->
+                <div class="bg-gradient-to-r from-montano-blue to-montano-teal text-white p-6 rounded-2xl shadow-md">
+                    <div class="flex items-start gap-4">
+                        <div class="p-3 bg-white/10 rounded-xl text-montano-yellow text-2xl">
+                            <i class="fa-solid fa-lightbulb"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-xl font-bold uppercase tracking-wide text-montano-yellow">Opening Question & Strategic Context</h2>
+                            <p class="text-lg font-semibold mt-1">"What motivates people to do their best work?"</p>
+                            <p class="text-sm text-slate-100 mt-2">
+                                In creative agencies, marketing departments, and sales teams, productivity is directly fueled by motivation and employee engagement. Understanding intrinsic versus extrinsic drivers, goal-setting theory, autonomy, recognition, and growth opportunities allows leaders to build vibrant, high-performing corporate cultures.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4 Core Pillars Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Pillar 1 -->
+                    <div class="card-montano p-5 rounded-xl border-l-montano-blue shadow-sm">
+                        <div class="flex items-center gap-3 mb-3">
+                            <span class="w-10 h-10 rounded-full bg-montano-blue/10 text-montano-blue flex items-center justify-center font-bold text-lg">1</span>
+                            <h3 class="text-lg font-bold text-slate-800">Intrinsic vs. Extrinsic Motivation</h3>
+                        </div>
+                        <p class="text-sm text-slate-600 mb-3">Intrinsic motivation arises from internal enjoyment and personal purpose. Extrinsic motivation relies on external rewards, bonuses, and recognition.</p>
+                        <div class="bg-slate-50 p-3 rounded-lg border border-slate-200">
+                            <span class="text-xs font-bold text-montano-blue uppercase block mb-1">Marketing Application:</span>
+                            <p class="text-xs text-slate-700 italic">Combining sales commissions (extrinsic) with creative freedom and purpose in ad design (intrinsic).</p>
+                        </div>
+                        <div class="mt-4">
+                            <span class="text-xs font-semibold text-slate-500">Motivation Balance Index:</span>
+                            <div class="w-full bg-slate-200 rounded-full h-2.5 mt-1">
+                                <div class="bg-montano-blue h-2.5 rounded-full" style="width: 92%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pillar 2 -->
+                    <div class="card-montano p-5 rounded-xl border-l-montano-teal shadow-sm">
+                        <div class="flex items-center gap-3 mb-3">
+                            <span class="w-10 h-10 rounded-full bg-montano-teal/10 text-montano-teal flex items-center justify-center font-bold text-lg">2</span>
+                            <h3 class="text-lg font-bold text-slate-800">Motivation Theories & Applications</h3>
+                        </div>
+                        <p class="text-sm text-slate-600 mb-3">Exploring classic frameworks: Maslow's Hierarchy of Needs, Herzberg's Two-Factor Theory, and Locke's Goal-Setting Theory in modern offices.</p>
+                        <div class="bg-slate-50 p-3 rounded-lg border border-slate-200">
+                            <span class="text-xs font-bold text-montano-teal uppercase block mb-1">Herzberg's Hygiene Factors:</span>
+                            <p class="text-xs text-slate-700 italic">Basic salary and working conditions prevent dissatisfaction, while achievement and recognition drive actual motivation.</p>
+                        </div>
+                        <div class="mt-4">
+                            <span class="text-xs font-semibold text-slate-500">Theoretical Alignment Meter:</span>
+                            <div class="w-full bg-slate-200 rounded-full h-2.5 mt-1">
+                                <div class="bg-montano-teal h-2.5 rounded-full" style="width: 88%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pillar 3 -->
+                    <div class="card-montano p-5 rounded-xl border-l-montano-olive shadow-sm">
+                        <div class="flex items-center gap-3 mb-3">
+                            <span class="w-10 h-10 rounded-full bg-montano-olive/10 text-montano-olive flex items-center justify-center font-bold text-lg">3</span>
+                            <h3 class="text-lg font-bold text-slate-800">Recognition, Goals & Autonomy</h3>
+                        </div>
+                        <p class="text-sm text-slate-600 mb-3">Providing regular praise, specific challenging goals (SMART/OKRs), and professional autonomy over how marketing campaigns are executed.</p>
+                        <div class="bg-slate-50 p-3 rounded-lg border border-slate-200">
+                            <span class="text-xs font-bold text-montano-olive uppercase block mb-1">Empowerment Impact:</span>
+                            <p class="text-xs text-slate-700 italic">Granting copywriters creative autonomy increases ownership and campaign originality.</p>
+                        </div>
+                        <div class="mt-4">
+                            <span class="text-xs font-semibold text-slate-500">Autonomy Correlation Scale:</span>
+                            <div class="w-full bg-slate-200 rounded-full h-2.5 mt-1">
+                                <div class="bg-montano-olive h-2.5 rounded-full" style="width: 95%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pillar 4 -->
+                    <div class="card-montano p-5 rounded-xl border-l-montano-lightblue shadow-sm">
+                        <div class="flex items-center gap-3 mb-3">
+                            <span class="w-10 h-10 rounded-full bg-montano-lightblue/10 text-montano-lightblue flex items-center justify-center font-bold text-lg">4</span>
+                            <h3 class="text-lg font-bold text-slate-800">Growth Opportunities & Job Satisfaction</h3>
+                        </div>
+                        <p class="text-sm text-slate-600 mb-3">Linking clear career advancement pathways, mentorship, and continuous feedback directly to employee engagement and retention.</p>
+                        <div class="bg-slate-50 p-3 rounded-lg border border-slate-200">
+                            <span class="text-xs font-bold text-montano-lightblue uppercase block mb-1">Retention Strategy:</span>
+                            <p class="text-xs text-slate-700 italic">Employees who perceive clear upward mobility exhibit significantly lower turnover rates.</p>
+                        </div>
+                        <div class="mt-4">
+                            <span class="text-xs font-semibold text-slate-500">Engagement Index:</span>
+                            <div class="w-full bg-slate-200 rounded-full h-2.5 mt-1">
+                                <div class="bg-montano-lightblue h-2.5 rounded-full" style="width: 90%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ESL Language & Grammar Toolkit (B2-C1) -->
+                <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                    <h3 class="text-lg font-bold text-montano-blue mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-language"></i> Advanced ESL Academic Structures for Motivation Analysis
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                        <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
+                            <h4 class="font-bold text-slate-800 border-b pb-1 mb-2">Expressing Causal Links</h4>
+                            <p class="text-xs text-slate-600 mb-2">Connecting autonomy directly to engagement outcomes.</p>
+                            <p class="text-xs font-mono text-montano-blue">"Granting creative autonomy serves to enhance both intrinsic drive and campaign originality."</p>
+                        </div>
+                        <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
+                            <h4 class="font-bold text-slate-800 border-b pb-1 mb-2">Theoretical Application</h4>
+                            <p class="text-xs text-slate-600 mb-2">Applying Herzberg's theory in professional discourse.</p>
+                            <p class="text-xs font-mono text-montano-blue">"Whereas salary acts merely as a hygiene factor, genuine recognition fosters deep motivation."</p>
+                        </div>
+                        <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
+                            <h4 class="font-bold text-slate-800 border-b pb-1 mb-2">Hypothetical Motivational Conditionals</h4>
+                            <p class="text-xs text-slate-600 mb-2">Discussing counterfactual engagement strategies.</p>
+                            <p class="text-xs font-mono text-montano-blue">"Had leadership established clearer growth opportunities, employee turnover would have decreased."</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 2: SOLVED EXAMPLES (15 EXAMPLES) -->
+            <div id="tab-2" class="tab-content hidden space-y-6">
+                <div class="bg-white p-4 rounded-xl border border-slate-200 flex justify-between items-center">
+                    <div>
+                        <h2 class="text-lg font-bold text-montano-blue">15 Solved Motivation & Engagement Cases</h2>
+                        <p class="text-xs text-slate-500">Intrinsic/extrinsic motivation, goals, autonomy, recognition, and retention. Click speaker icon for Text-To-Speech.</p>
+                    </div>
+                    <span class="bg-montano-blue text-white text-xs font-bold px-3 py-1 rounded-full">5 Basic | 5 Inter. | 5 Adv.</span>
+                </div>
+
+                <div id="examplesContainer" class="space-y-4">
+                    <!-- Dynamically populated via JS -->
+                </div>
+            </div>
+
+            <!-- TAB 3: LIVE VOICE SIMULATOR & DASHBOARD -->
+            <div id="tab-3" class="tab-content hidden space-y-6">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    
+                    <!-- Simulator Interactive Panel -->
+                    <div class="lg:col-span-2 bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between border-b pb-4 mb-4">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-12 h-12 rounded-full bg-montano-blue text-white flex items-center justify-center font-bold text-xl">
+                                        <i class="fa-solid fa-bullhorn"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-bold text-slate-800">Motivation Plan Proposal Simulator</h3>
+                                        <p class="text-xs text-slate-500">Scenario: Pitching an employee engagement strategy to marketing agency leadership.</p>
+                                    </div>
+                                </div>
+                                <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-2.5 py-1 rounded-full flex items-center gap-1">
+                                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Live Simulation
+                                </span>
+                            </div>
+
+                            <!-- Simulation Dialogue Box -->
+                            <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 mb-4 space-y-3 max-h-60 overflow-y-auto" id="dialogueBox">
+                                <div class="flex gap-3">
+                                    <div class="font-bold text-xs text-montano-blue w-28 shrink-0">Managing Director:</div>
+                                    <div class="text-sm text-slate-700 bg-white p-2.5 rounded-lg border border-slate-200 shadow-2xs">
+                                        "Our marketing team's engagement scores are slipping. How do you propose we combine intrinsic motivation, recognition, and autonomy into a comprehensive motivation plan?"
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- User Response Input Section -->
+                            <div class="space-y-3">
+                                <label class="block text-xs font-bold text-slate-700 uppercase">Your Professional Motivation Plan Proposal:</label>
+                                <textarea id="speechInput" rows="3" 
+                                          class="w-full p-3 text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-montano-blue focus:outline-none"
+                                          placeholder="Speak using microphone or type your motivation plan addressing intrinsic drivers, goal-setting, recognition, and growth..."></textarea>
+                                
+                                <div class="flex flex-wrap gap-3 items-center justify-between">
+                                    <button onclick="toggleSpeechRecognition()" id="micBtn"
+                                            class="bg-montano-yellow text-slate-900 px-4 py-2 rounded-xl text-sm font-bold flex items-center gap-2 hover:bg-yellow-400 transition shadow-sm">
+                                        <i class="fa-solid fa-microphone" id="micIcon"></i> <span id="micText">Start Speaking</span>
+                                    </button>
+
+                                    <div class="flex gap-2">
+                                        <button onclick="clearSimInput()" class="px-3 py-2 text-xs font-bold text-slate-500 hover:text-slate-700">Clear</button>
+                                        <button onclick="evaluateResponse()" class="bg-montano-blue text-white px-5 py-2 rounded-xl text-sm font-bold hover:bg-opacity-90 transition shadow-sm">
+                                            Evaluate Motivation Plan
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Sample Prompts -->
+                        <div class="mt-6 pt-4 border-t border-slate-100">
+                            <span class="text-xs font-bold text-slate-400 block mb-2">Try saying/typing:</span>
+                            <div class="flex flex-wrap gap-2">
+                                <button onclick="insertSamplePrompt(1)" class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded-lg border border-slate-200">
+                                    "We propose combining competitive bonuses with intrinsic autonomy, structured recognition programs, and clear growth pathways."
+                                </button>
+                                <button onclick="insertSamplePrompt(2)" class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded-lg border border-slate-200">
+                                    "Just increase everyone's salary by 10 percent and don't worry about culture."
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Live Performance Dashboard -->
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between space-y-4">
+                        <div>
+                            <h3 class="font-bold text-slate-800 border-b pb-2 mb-4 flex items-center gap-2">
+                                <i class="fa-solid fa-chart-line text-montano-teal"></i> Live Performance Dashboard
+                            </h3>
+
+                            <!-- Score Metrics -->
+                            <div class="space-y-4">
+                                <div>
+                                    <div class="flex justify-between text-xs font-bold mb-1">
+                                        <span>Pronunciation & Speech Clarity</span>
+                                        <span id="scorePronunciation" class="text-montano-blue">0%</span>
+                                    </div>
+                                    <div class="w-full bg-slate-100 rounded-full h-2">
+                                        <div id="barPronunciation" class="bg-montano-blue h-2 rounded-full transition-all duration-500" style="width: 0%"></div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div class="flex justify-between text-xs font-bold mb-1">
+                                        <span>Motivation & Academic Accuracy</span>
+                                        <span id="scoreGrammar" class="text-montano-teal">0%</span>
+                                    </div>
+                                    <div class="w-full bg-slate-100 rounded-full h-2">
+                                        <div id="barGrammar" class="bg-montano-teal h-2 rounded-full transition-all duration-500" style="width: 0%"></div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div class="flex justify-between text-xs font-bold mb-1">
+                                        <span>Proposal Etiquette & Professionalism</span>
+                                        <span id="scorePoliteness" class="text-montano-olive">0%</span>
+                                    </div>
+                                    <div class="w-full bg-slate-100 rounded-full h-2">
+                                        <div id="barPoliteness" class="bg-montano-olive h-2 rounded-full transition-all duration-500" style="width: 0%"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Keywords Detected -->
+                            <div class="mt-5">
+                                <span class="text-xs font-bold text-slate-500 uppercase block mb-2">Detected Motivation Keywords:</span>
+                                <div id="keywordsContainer" class="flex flex-wrap gap-1.5 min-h-[32px] p-2 bg-slate-50 rounded-lg border border-slate-200 text-xs text-slate-400">
+                                    No keywords detected yet...
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- AI Feedback Box -->
+                        <div class="bg-montano-softwhite p-4 rounded-xl border border-montano-lightblue/30 mt-4">
+                            <span class="text-xs font-bold text-montano-blue flex items-center gap-1.5 mb-1">
+                                <i class="fa-solid fa-robot"></i> AI Pedagogical Feedback:
+                            </span>
+                            <p id="aiFeedback" class="text-xs text-slate-700 italic">
+                                Submit your motivation plan response to receive automated feedback on your integration of intrinsic drivers, goals, recognition, and autonomy.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- TAB 4: CRITICAL REFLECTION QUESTIONS -->
+            <div id="tab-4" class="tab-content hidden space-y-6">
+                <div class="bg-white p-6 rounded-xl border border-slate-200">
+                    <h2 class="text-xl font-bold text-montano-blue mb-2">Critical Reflection & Strategic Application</h2>
+                    <p class="text-sm text-slate-600 mb-6">Analyze the motivational scenarios below. Apply your knowledge of intrinsic motivation, goal-setting theory, autonomy, and recognition to design organizational interventions.</p>
+
+                    <div class="space-y-6">
+                        <!-- Question 1 -->
+                        <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-3">
+                            <label class="block font-bold text-slate-800 text-sm">
+                                1. Scenario: Designing a Motivation Plan for a Fictional Marketing Team
+                            </label>
+                            <p class="text-xs text-slate-600">A digital marketing agency suffers from low employee engagement and creative burnout. Create a 4-part motivation plan integrating intrinsic drivers, goal-setting (OKRs), autonomy, and recognition.</p>
+                            <textarea rows="3" class="w-full p-3 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-montano-blue focus:outline-none" placeholder="Detail your strategy across intrinsic rewards, goal clarity, creative autonomy, and recognition programs..."></textarea>
+                        </div>
+
+                        <!-- Question 2 -->
+                        <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-3">
+                            <label class="block font-bold text-slate-800 text-sm">
+                                2. Scenario: Intrinsic vs. Extrinsic Rewards in Sales Competitions
+                            </label>
+                            <p class="text-xs text-slate-600">Management introduces a high-stakes commission bonus for the top salesperson. While sales spike for two weeks, collaboration drops and resentment builds among team members. How would you analyze this using motivation theories?</p>
+                            <textarea rows="3" class="w-full p-3 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-montano-blue focus:outline-none" placeholder="Discuss the limitations of purely extrinsic rewards and how to balance them with collaborative intrinsic drivers..."></textarea>
+                        </div>
+
+                        <!-- Question 3 -->
+                        <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-3">
+                            <label class="block font-bold text-slate-800 text-sm">
+                                3. Task: Evaluating the Impact of Autonomy and Growth Opportunities
+                            </label>
+                            <p class="text-xs text-slate-600">Why do micro-managed marketing teams experience higher turnover compared to teams with high autonomy and clear career growth pathways? Cite Herzberg or Self-Determination Theory in your explanation.</p>
+                            <textarea rows="3" class="w-full p-3 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-montano-blue focus:outline-none" placeholder="Explain how autonomy fulfills psychological needs and drives long-term job satisfaction..."></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 5: FORMATIVE EVALUATION (15 PROBLEMS) -->
+            <div id="tab-5" class="tab-content hidden space-y-6">
+                <div class="bg-white p-4 rounded-xl border border-slate-200 flex justify-between items-center">
+                    <div>
+                        <h2 class="text-lg font-bold text-montano-blue">15 Formative Evaluation Exercises</h2>
+                        <p class="text-xs text-slate-500">Apply motivation and engagement theory to solve workplace challenges. Toggle solutions for step-by-step explanations.</p>
+                    </div>
+                    <span class="bg-montano-teal text-white text-xs font-bold px-3 py-1 rounded-full">Self-Paced Practice</span>
+                </div>
+
+                <div id="evaluationContainer" class="space-y-4">
+                    <!-- Dynamically populated via JS -->
+                </div>
+            </div>
+
+        </main>
+
+        <!-- FOOTER SECTION -->
+        <footer class="mt-8 pt-4 border-t border-slate-300 flex flex-col md:flex-row items-center justify-between text-xs text-slate-500 gap-2">
+            <div>
+                © 2026 <strong>Colegio Montano</strong> — Interactive Study Guide Series
+            </div>
+            <div class="flex items-center gap-4">
+                <span>Subject: Marketing / Organizational Psychology</span>
+                <span>Level: 12th Mercadotecnia</span>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // SOLVED EXAMPLES DATA (15 Items: 5 Basic, 5 Intermediate, 5 Advanced)
+        const solvedExamples = [
+            // Level 1: Basic (1-5)
+            { id: 1, level: "Basic", title: "Defining Intrinsic Motivation", context: "Understanding internal drivers in marketing creators.", response: "Intrinsic motivation is driven by internal rewards, personal enjoyment, and the inherent satisfaction of solving a creative marketing challenge.", focus: "Intrinsic Motivation" },
+            { id: 2, level: "Basic", title: "Defining Extrinsic Motivation", context: "Analyzing financial bonuses and sales commissions.", response: "Extrinsic motivation stems from external rewards such as salary increases, bonuses, trophies, and public recognition.", focus: "Extrinsic Motivation" },
+            { id: 3, level: "Basic", title: "Herzberg's Hygiene Factors", context: "Distinguishing basic salary from true motivators.", response: "According to Herzberg, hygiene factors like base pay and working conditions prevent dissatisfaction, while achievement and recognition drive motivation.", focus: "Herzberg's Theory" },
+            { id: 4, level: "Basic", title: "The Role of Autonomy in Creative Teams", context: "Giving copywriters control over campaign formatting.", response: "Autonomy provides employees with the freedom to choose how and when to execute their tasks, fostering psychological ownership.", focus: "Autonomy" },
+            { id: 5, level: "Basic", title: "Defining Employee Engagement", context: "Measuring emotional commitment to organizational goals.", response: "Employee engagement measures the depth of an employee's emotional commitment, passion, and proactive dedication to their daily work.", focus: "Engagement" },
+
+            // Level 2: Intermediate (6-10)
+            { id: 6, level: "Intermediate", title: "Locke's Goal-Setting Theory in Sales", context: "Setting specific and challenging sales quotas.", response: "Locke's theory proves that specific, challenging, and accepted goals combined with feedback lead to significantly higher performance than vague goals.", focus: "Goal-Setting Theory" },
+            { id: 7, level: "Intermediate", title: "Balancing Financial Bonuses with Recognition", context: "Addressing low morale despite competitive salaries.", response: "While financial bonuses are necessary, regular peer recognition and verbal appreciation fulfill crucial psychological needs that cash alone cannot.", focus: "Recognition" },
+            { id: 8, level: "Intermediate", title: "Linking Growth Opportunities to Job Satisfaction", context: "Reducing turnover among junior digital marketers.", response: "Providing clear promotion pathways, mentorship, and skill-building workshops increases perceived future value, boosting job satisfaction.", focus: "Growth Opportunities" },
+            { id: 9, level: "Intermediate", title: "Addressing Over-Reliance on Extrinsic Rewards", context: "Sales reps losing motivation when commission caps are hit.", response: "Over-reliance on extrinsic rewards erodes intrinsic drive; sustainable engagement requires cultivating purpose and mastery alongside commissions.", focus: "Motivational Balance" },
+            { id: 10, level: "Intermediate", title: "Designing Feedback Loops for Creative Strategists", context: "Delivering constructive input on ad campaign pitches.", response: "Timely, specific feedback validates creative effort and clarifies alignment with client objectives, sustaining high motivation.", focus: "Feedback" },
+
+            // Level 3: Advanced (11-15)
+            { id: 11, level: "Advanced", title: "Designing a Comprehensive Agency Motivation Plan", context: "Revitalizing a stagnant digital marketing department.", response: "An effective motivation plan integrates competitive base pay (hygiene), performance OKRs (goals), creative freedom (autonomy), and peer recognition programs.", focus: "Motivation Strategy" },
+            { id: 12, level: "Advanced", title: "Analyzing the Dark Side of Aggressive Sales Quotas", context: "Sales team experiencing burnout and unethical behavior.", response: "When goals are set without ethical boundaries or support, employees may resort to deceptive sales practices to hit metrics, damaging long-term brand equity.", advanced: true, focus: "Goal Ethics" },
+            { id: 13, level: "Advanced", title: "Applying Self-Determination Theory (SDT) to Remote Workers", context: "Maintaining engagement in a hybrid marketing team.", response: "SDT posits that fulfilling three psychological needs—autonomy, competence, and relatedness—maximizes employee engagement and well-being.", focus: "Self-Determination Theory" },
+            { id: 14, level: "Advanced", title: "Measuring ROI of Employee Engagement Initiatives", context: "Justifying budget for team recognition and wellness programs.", response: "ROI is measured by tracking reductions in voluntary turnover costs, decreases in absenteeism, and increases in customer satisfaction scores.", focus: "Engagement ROI" },
+            { id: 15, level: "Advanced", title: "Transforming Micromanaged Culture into a Mastery-Oriented Culture", context: "Senior leadership overly monitoring daily creative output.", response: "Transitioning from micro-monitoring to outcome-based evaluation restores trust, enhances intrinsic motivation, and unlocks breakthrough campaign innovation.", focus: "Culture Transformation" }
+        ];
+
+        // FORMATIVE EVALUATION DATA (15 Problems)
+        const evaluationExercises = [
+            // Level 1: Basic (1-5)
+            { id: 1, level: "Basic", question: "Distinguish clearly between intrinsic and extrinsic motivation in a marketing workplace.", solution: "Intrinsic motivation comes from internal enjoyment and personal purpose in the work itself; extrinsic motivation comes from external rewards like money or awards." },
+            { id: 2, level: "Basic", question: "What is the primary premise of Herzberg's Two-Factor Theory regarding hygiene factors?", solution: "Hygiene factors (such as base salary and working conditions) prevent job dissatisfaction, but they do not actively create high motivation." },
+            { id: 3, level: "Basic", question: "Define employee engagement and state why it matters for creative agencies.", solution: "Employee engagement is emotional commitment to the company; engaged marketing professionals produce higher-quality campaigns and remain with the firm longer." },
+            { id: 4, level: "Basic", question: "How does autonomy impact a copywriter's daily productivity and creative output?", solution: "Autonomy grants freedom over task execution, increasing psychological ownership, intrinsic motivation, and creative originality." },
+            { id: 5, level: "Basic", question: "Give two examples of effective, non-monetary recognition in a sales office.", solution: "1) Public 'Shout-Out' boards during weekly meetings. 2) Prestigious 'Marketer of the Month' trophy or certificate." },
+
+            // Level 2: Intermediate (6-10)
+            { id: 6, level: "Intermediate", question: "Explain Locke's Goal-Setting Theory and its two core requirements for maximizing performance.", solution: "Locke's theory states that performance is maximized when goals are 1) specific and 2) challenging yet accepted by the employee, supported by regular feedback." },
+            { id: 7, level: "Intermediate", question: "Why can offering excessive financial incentives for creative brainstorming sometimes backfire?", solution: "Excessive extrinsic rewards can crowd out intrinsic passion, turning creative problem-solving into a transactional chore and reducing novelty." },
+            { id: 8, level: "Intermediate", question: "How do growth opportunities and career pathways directly influence employee retention?", solution: "They assure employees of long-term professional development, reducing turnover intentions and increasing dedication to organizational goals." },
+            { id: 9, level: "Intermediate", question: "Describe how continuous feedback reinforces both motivation and skill mastery.", solution: "Continuous feedback provides actionable guidance, acknowledging progress and correcting errors in real-time without punitive delays." },
+            { id: 10, level: "Intermediate", question: "What is the psychological impact of role ambiguity on employee motivation?", solution: "Role ambiguity creates confusion and stress, neutralizing motivation because employees do not know which behaviors will be rewarded." },
+
+            // Level 3: Advanced (11-15)
+            { id: 11, level: "Advanced", question: "Design an integrated motivation framework for a digital marketing agency experiencing creative burnout and high turnover.", solution: "1) Secure competitive baseline pay (Herzberg hygiene). 2) Implement quarterly OKRs with feedback. 3) Grant creative autonomy. 4) Establish peer recognition awards and clear promotion pathways." },
+            { id: 12, level: "Advanced", question: "Analyze the ethical risks when leadership ties sales bonuses strictly to aggressive monthly revenue quotas without qualitative guardrails.", solution: "Reps may push inappropriate products or engage in deceptive closing tactics to hit financial targets, destroying long-term customer trust and brand equity." },
+            { id: 13, level: "Advanced", question: "How does Self-Determination Theory explain the necessity of balancing autonomy, competence, and relatedness in modern offices?", solution: "Fulfilling these three innate psychological needs drives sustainable intrinsic motivation, psychological well-being, and deep organizational commitment." },
+            { id: 14, level: "Advanced", question: "Formulate a motivational coaching dialogue for a talented designer who feels undervalued and lacks enthusiasm.", solution: "'I truly value your creative contributions to our campaigns. I've noticed your engagement dipping recently; let's discuss how we can expand your autonomy and map out your growth trajectory.'" },
+            { id: 15, level: "Advanced", question: "Propose a metric system to evaluate the success and financial return (ROI) of an employee recognition program.", solution: "Track pre- and post-program metrics on: 1) Voluntary turnover rate percentage, 2) Absenteeism frequency, and 3) Employee pulse survey engagement scores, calculating savings on recruitment costs." }
+        ];
+
+        // INITIALIZATION
+        window.onload = function() {
+            renderSolvedExamples();
+            renderFormativeEvaluation();
+        };
+
+        // TAB SWITCHING LOGIC
+        function switchTab(tabIndex) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+
+            document.getElementById(`tab-${tabIndex}`).classList.remove('hidden');
+            document.getElementById(`tab-btn-${tabIndex}`).classList.add('active');
+        }
+
+        // FULLSCREEN TOGGLE
+        function toggleFullscreen() {
+            const container = document.getElementById('whiteboardContainer');
+            const icon = document.getElementById('fullscreenIcon');
+
+            if (!document.fullscreenElement) {
+                if (container.requestFullscreen) {
+                    container.requestFullscreen();
+                } else if (container.webkitRequestFullscreen) {
+                    container.webkitRequestFullscreen();
+                }
+                icon.classList.remove('fa-expand');
+                icon.classList.add('fa-compress');
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+                icon.classList.remove('fa-compress');
+                icon.classList.add('fa-expand');
+            }
+        }
+
+        // TEXT TO SPEECH (TTS)
+        function speakText(text) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'en-US';
+                utterance.rate = 0.95;
+                window.speechSynthesis.speak(utterance);
+            } else {
+                alert("Text-to-speech is not supported in your browser.");
+            }
+        }
+
+        // RENDER SOLVED EXAMPLES
+        function renderSolvedExamples() {
+            const container = document.getElementById('examplesContainer');
+            container.innerHTML = solvedExamples.map(ex => {
+                let badgeColor = ex.level === 'Basic' ? 'bg-montano-blue' : (ex.level === 'Intermediate' ? 'bg-montano-teal' : 'bg-montano-olive');
+                return `
+                    <div class="card-montano p-4 rounded-xl border border-slate-200 shadow-2xs">
+                        <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 border-b border-slate-100 pb-2 mb-3">
+                            <div class="flex items-center gap-2">
+                                <span class="${badgeColor} text-white text-xs font-bold px-2.5 py-0.5 rounded-full">Level ${ex.id <= 5 ? 1 : (ex.id <= 10 ? 2 : 3)}: ${ex.level}</span>
+                                <h3 class="font-bold text-slate-800 text-sm md:text-base">${ex.id}. ${ex.title}</h3>
+                            </div>
+                            <span class="text-xs font-bold text-slate-400">Focus: ${ex.focus}</span>
+                        </div>
+                        <p class="text-xs text-slate-500 mb-2"><strong>Context:</strong> ${ex.context}</p>
+                        <div class="bg-slate-50 p-3 rounded-lg border border-slate-200 flex items-start justify-between gap-3">
+                            <p class="text-xs md:text-sm text-slate-700 italic font-medium">"${ex.response}"</p>
+                            <button onclick="speakText('${ex.response.replace(/'/g, "\\'")}')" class="audio-btn text-montano-blue hover:text-montano-teal p-1.5 bg-white rounded-full shadow-2xs shrink-0" title="Listen to audio">
+                                <i class="fa-solid fa-volume-high text-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // RENDER FORMATIVE EVALUATION
+        function renderFormativeEvaluation() {
+            const container = document.getElementById('evaluationContainer');
+            container.innerHTML = evaluationExercises.map(ex => {
+                let badgeColor = ex.level === 'Basic' ? 'bg-montano-blue' : (ex.level === 'Intermediate' ? 'bg-montano-teal' : 'bg-montano-olive');
+                return `
+                    <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-2xs space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="${badgeColor} text-white text-xs font-bold px-2.5 py-0.5 rounded-full">Exercise ${ex.id} (${ex.level})</span>
+                            <button onclick="toggleSolution(${ex.id})" class="text-xs font-bold text-montano-blue hover:text-montano-teal border border-montano-blue/30 px-3 py-1 rounded-lg transition">
+                                <i class="fa-solid fa-eye" id="solIcon-${ex.id}"></i> <span id="solBtnText-${ex.id}">Show Solution</span>
+                            </button>
+                        </div>
+                        <p class="text-sm font-semibold text-slate-800">${ex.question}</p>
+                        <div id="solutionBox-${ex.id}" class="hidden bg-montano-softwhite p-3 rounded-lg border border-montano-lightblue/40 text-xs text-slate-700">
+                            <strong class="text-montano-blue block mb-1">Step-by-Step Academic Explanation:</strong>
+                            ${ex.solution}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function toggleSolution(id) {
+            const box = document.getElementById(`solutionBox-${id}`);
+            const btnText = document.getElementById(`solBtnText-${id}`);
+            const icon = document.getElementById(`solIcon-${id}`);
+
+            if (box.classList.contains('hidden')) {
+                box.classList.remove('hidden');
+                btnText.innerText = "Hide Solution";
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                box.classList.add('hidden');
+                btnText.innerText = "Show Solution";
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        }
+
+        // SPEECH RECOGNITION
+        let recognition = null;
+        let isListening = false;
+
+        if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            recognition = new SpeechRecognition();
+            recognition.continuous = false;
+            recognition.interimResults = false;
+            recognition.lang = 'en-US';
+
+            recognition.onresult = function(event) {
+                const transcript = event.results[0][0].transcript;
+                document.getElementById('speechInput').value = transcript;
+                stopSpeech();
+            };
+
+            recognition.onerror = function() {
+                stopSpeech();
+            };
+
+            recognition.onend = function() {
+                stopSpeech();
+            };
+        }
+
+        function toggleSpeechRecognition() {
+            if (!recognition) {
+                alert("Web Speech API recognition is not supported in this browser. Please type your response.");
+                return;
+            }
+
+            if (!isListening) {
+                try {
+                    recognition.start();
+                    isListening = true;
+                    document.getElementById('micBtn').classList.replace('bg-montano-yellow', 'bg-red-500');
+                    document.getElementById('micBtn').classList.add('text-white');
+                    document.getElementById('micText').innerText = "Listening...";
+                    document.getElementById('micIcon').classList.add('animate-ping');
+                } catch (e) {
+                    console.error(e);
+                }
+            } else {
+                stopSpeech();
+            }
+        }
+
+        function stopSpeech() {
+            if (recognition && isListening) {
+                recognition.stop();
+            }
+            isListening = false;
+            const micBtn = document.getElementById('micBtn');
+            if (micBtn) {
+                micBtn.classList.replace('bg-red-500', 'bg-montano-yellow');
+                micBtn.classList.remove('text-white');
+                document.getElementById('micText').innerText = "Start Speaking";
+                document.getElementById('micIcon').classList.remove('animate-ping');
+            }
+        }
+
+        function clearSimInput() {
+            document.getElementById('speechInput').value = '';
+        }
+
+        function insertSamplePrompt(type) {
+            const input = document.getElementById('speechInput');
+            if (type === 1) {
+                input.value = "We propose combining competitive base pay with intrinsic creative autonomy, structured recognition programs, and clear career growth pathways.";
+            } else {
+                input.value = "Just increase everyone's salary by 10 percent and don't worry about culture.";
+            }
+        }
+
+        // SIMULATOR ANALYSIS ENGINE
+        function evaluateResponse() {
+            const input = document.getElementById('speechInput').value.trim();
+            if (!input) {
+                alert("Please speak or type a response first.");
+                return;
+            }
+
+            const lower = input.toLowerCase();
+
+            // Motivation Key terms detection
+            const keywords = ['intrinsic', 'extrinsic', 'autonomy', 'recognition', 'goals', 'growth', 'satisfaction', 'engagement', 'motivation', 'herzberg', 'locke', 'hygiene', 'career'];
+            const detected = keywords.filter(word => lower.includes(word));
+
+            const keywordsContainer = document.getElementById('keywordsContainer');
+            if (detected.length > 0) {
+                keywordsContainer.innerHTML = detected.map(w => `<span class="bg-montano-lightblue/20 text-montano-blue font-bold px-2 py-0.5 rounded">${w}</span>`).join(' ');
+            } else {
+                keywordsContainer.innerHTML = `<span class="text-red-400">No motivation terminology detected</span>`;
+            }
+
+            // Simple Scoring Heuristics
+            let politenessScore = 50;
+            let grammarScore = 40;
+            let pronunciationScore = input.length > 20 ? 88 : 60;
+
+            if (lower.includes('intrinsic') || lower.includes('autonomy') || lower.includes('recognition') || lower.includes('growth')) grammarScore += 35;
+            if (lower.includes('propose') || lower.includes('combine') || lower.includes('we suggest') || lower.includes('structured')) politenessScore += 35;
+
+            if (lower.includes('just increase') || lower.includes('don\'t worry') || lower.includes('salary only')) {
+                politenessScore = 20;
+                grammarScore -= 20;
+            }
+
+            if (input.length > 35) grammarScore += 15;
+
+            politenessScore = Math.min(politenessScore, 100);
+            grammarScore = Math.min(grammarScore, 100);
+
+            // Update UI Bars
+            document.getElementById('scorePronunciation').innerText = `${pronunciationScore}%`;
+            document.getElementById('barPronunciation').style.width = `${pronunciationScore}%`;
+
+            document.getElementById('scoreGrammar').innerText = `${grammarScore}%`;
+            document.getElementById('barGrammar').style.width = `${grammarScore}%`;
+
+            document.getElementById('scorePoliteness').innerText = `${politenessScore}%`;
+            document.getElementById('barPoliteness').style.width = `${politenessScore}%`;
+
+            // Feedback Generation
+            const feedbackEl = document.getElementById('aiFeedback');
+            let feedbackMsg = "";
+
+            if (grammarScore >= 75 && politenessScore >= 70) {
+                feedbackMsg = "<strong>Outstanding Motivation Proposal!</strong> You effectively balanced intrinsic drivers, recognition, autonomy, and growth opportunities.";
+            } else if (grammarScore >= 50) {
+                feedbackMsg = "<strong>Good Academic Effort:</strong> You addressed engagement, but incorporating terms like 'intrinsic motivation', 'autonomy', or 'Herzberg' will strengthen your proposal.";
+            } else {
+                feedbackMsg = "<strong>Needs Refinement:</strong> Relying solely on salary increases ignores psychological engagement factors. A professional plan requires intrinsic drivers and recognition.";
+            }
+
+            feedbackEl.innerHTML = feedbackMsg;
+
+            // Trigger Voice Feedback from AI Agent
+            speakText(grammarScore >= 75 ? "Excellent motivation proposal! You integrated intrinsic drivers and recognition effectively." : "Analysis complete. Try incorporating core terms like intrinsic motivation and autonomy.");
+        }
+    </script>
+</body>
+</html>
